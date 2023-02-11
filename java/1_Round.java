@@ -10,14 +10,20 @@
  * (starting at 4, for brevity).
  */
 
+import java.lang.String;
+
 public class Round {
     // The countdown will start here and a copy will decrement for the
     // performance
-    private final int START = 4;
+    private static final int START = 4;
 
     public static void main(String[] args){
 	// A serial countdown as per the performance
-	for(int i = START; i >= 0; i--){
-	    
+	for(int i = START; i > 0; i--){
+	    System.out.printf("%d bottles of beer on the wall\n", i);
+	    System.out.printf("%d bottles of beer\n", i);
+	    System.out.printf("Take one down, pass it around\n");
+	    System.out.printf("%d bottles of beer on the wall\n", i - 1);
+	}
     }
 }
