@@ -1,6 +1,6 @@
-* Git Demo using 99bottles in Java
+# Git Demo using 99bottles in Java
 
-** Description
+## Description
 
 The purpose of this repository is to create an automated demonstration
 of git using "99 Bottles of Beer on the Wall" (starting at 4 bottles left).
@@ -10,7 +10,7 @@ in order for future development using Windows command-prompt/PowerShell.
 
 Initially, this will be developed using BASH.
 
-** Authors
+## Authors
 
 Matt Markfort
 
