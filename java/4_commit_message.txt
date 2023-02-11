@@ -1,0 +1,7 @@
+Extended the Singer class as a Thread child implementing
+the Runnable interface
+
+Updated the main object to create a "thread pool" for each
+Thread object
+
+Compiles ok and runs as expected

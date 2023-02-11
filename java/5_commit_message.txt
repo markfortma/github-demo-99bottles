@@ -1,0 +1,6 @@
+Merged the Singer thread child and tested ok
+
+Updated the main object to capture a number from the user
+at execution
+
+Compiles ok and runs as expected

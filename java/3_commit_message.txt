@@ -1,0 +1,4 @@
+Created a Singer class to perform their verses from the given start
+count
+
+Compiles and executes as expected
