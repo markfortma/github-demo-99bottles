@@ -13,13 +13,14 @@ import java.lang.String;
 import java.lang.Thread;
 import java.lang.Runnable;
 
-public class Singer extends Thread implements Runnable {
+public class Singer extends Thread {
     private static int currentSingerID = 0;
     private int singerID;
     private int startVerse;
 
     /* Create a singer with the next available singerID */
     public Singer(int verse){
+        super();
 	this.singerID = currentSingerID++;
 	this.startVerse = verse;
     }
