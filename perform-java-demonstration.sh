@@ -186,6 +186,7 @@ if [ -d ${1} ]; then
     cd ${1}
     if [ -d .git ]; then
 	# if the folder is a git repository, proceed
+	introduction
 	first_commit
 	for i in {0..3..1}; do
 	    next_commits ${i}
