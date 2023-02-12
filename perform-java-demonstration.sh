@@ -51,9 +51,6 @@ first_commit(){
     read enter # pause until user enters
     printf "Those files have been created\n"
     sleep 1
-    printf "Rename master to main\n"
-    printf "$ git branch -M main\n"
-    git branch -M main
     printf "$ git add .gitignore LICENSE README.md\n"
     sleep 1
     git add .gitignore LICENSE README.md
@@ -63,6 +60,7 @@ first_commit(){
     sleep 1
     printf "$ git log\n"
     git log
+    read enter # pause for user enter
 }
 
 next_commits(){
@@ -88,7 +86,7 @@ next_commits(){
     sleep 1
     printf "$ git push\n\n"
     git push
-    read enter
+    read enter # pause for user enter
 }
 
 branch_commit(){
@@ -127,9 +125,11 @@ branch_commit(){
     printf "$ git commit -m \"%s\"\n" "${commit_message}"
     git commit -m "${commit_message}"
     sleep 1
-    printf "$ git push\n\n"
-    git push
-    read enter
+    printf "To have remote track this branch, be sure to push it like this\n"
+    printf "This is only required on the first push. Later pushes can be as before\n"
+    printf "$ git push --set-upstream origin threaded\n\n"
+    git push --set-upstream origin threaded
+    read enter # pause for user enter
 }
 
 merge_branch(){
@@ -138,8 +138,8 @@ merge_branch(){
     printf "one branch with another\n"
     printf "Switch branches to the destination\n"
     sleep 1
-    printf "$ git branch main\n"
-    git branch main
+    printf "$ git checkout main\n"
+    git checkout main
     printf "$ git branch\n"
     git branch
     read enter # pause until user hits enter
@@ -174,7 +174,10 @@ commit_last(){
     commit_message=$(cat ${PROJECTDIR}/java/5_commit_message.txt)
     printf "$ git commit -m \"%s\"\n" "${commit_message}"
     git commit -m "${commit_message}"
+    printf "$ git push\n"
+    git push
     git log
+    read enter # pause for user enter
 }
     
 
