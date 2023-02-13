@@ -22,8 +22,6 @@ PROJECTDIR=$(pwd)
 #                  \ 4 /
 #
 
-alias pause='read -p "Press enter key to continue..."'
-
 # Sanity checks
 if [ $# -ne 1 ]; then
     printf "Usage: %s path/to/repo\n" ${0##*/} > /dev/stderr
@@ -51,7 +49,7 @@ first_commit(){
     set -x
     git status
     set +x
-    pause enter # pause until user enters
+    read -p "Press enter key to continue..." enter # pause until user enters
     printf "Those files have been created\n"
     set -x
     git add .gitignore LICENSE README.md
@@ -59,14 +57,13 @@ first_commit(){
     git push
     git log
     set +x
-    pause enter # pause for user enter
+    read -p "Press enter key to continue..." enter # pause for user enter
 }
 
 next_commits(){
     FILEPREFIX=${1}
     clear
     printf "Create and edit files\n"
-    sleep 1
     for item in ${PROJECTDIR}/java/${FILEPREFIX}_*.java; do
 	# trim file path
 	destination=${item##*/}
@@ -83,7 +80,7 @@ next_commits(){
     git commit -m "${commit_message}"
     git push
     set +x
-    pause enter # pause for user enter
+    read -p "Press enter key to continue..." enter # pause for user enter
 }
 
 branch_commit(){
@@ -97,7 +94,7 @@ branch_commit(){
     git checkout threaded
     git branch
     set +x
-    pause enter # pause until user enters
+    read -p "Press enter key to continue..." enter # pause until user enters
     printf "Make changes and test it\n"
     printf "You can commit as many changes as needed\n"
     for item in ${PROJECTDIR}/java/${FILEPREFIX}_*.java; do
@@ -110,7 +107,7 @@ branch_commit(){
     set -x
     git status
     set +x
-    pause enter
+    read -p "Press enter key to continue..." enter
     set -x
     git add *.java
     set +x
@@ -122,7 +119,7 @@ branch_commit(){
     printf "This is only required on the first push. Later pushes can be as before\n"
     printf "$ git push --set-upstream origin threaded\n\n"
     git push --set-upstream origin threaded
-    pause enter # pause for user enter
+    read -p "Press enter key to continue..." enter # pause for user enter
 }
 
 merge_branch(){
@@ -134,7 +131,7 @@ merge_branch(){
     git checkout main
     git branch
     set +x
-    pause enter # pause until user hits enter
+    read -p "Press enter key to continue..." enter # pause until user hits enter
     printf "This may require an OK from a project leader\n"
     printf "if this is a group project\n"
     set -x
@@ -145,7 +142,7 @@ merge_branch(){
     set -x
     git branch -d threaded
     set +x
-    pause enter # pause for user enter
+    read -p "Press enter key to continue..." enter # pause for user enter
 }
 
 commit_last(){
@@ -168,7 +165,7 @@ commit_last(){
     git push
     git log
     set +x
-    pause enter # pause for user enter
+    read -p "Press enter key to continue..." enter # pause for user enter
 }
     
 
