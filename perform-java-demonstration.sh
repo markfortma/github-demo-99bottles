@@ -22,6 +22,8 @@ PROJECTDIR=$(pwd)
 #                  \ 4 /
 #
 
+alias pause='read -p "Press enter key to continue..."'
+
 # Sanity checks
 if [ $# -ne 1 ]; then
     printf "Usage: %s path/to/repo\n" ${0##*/} > /dev/stderr
@@ -31,7 +33,7 @@ fi
 introduction(){
     clear
     printf "Welcome to Matt\'s git demonstration\n"
-    read enter
+    pause enter
 }
 
 first_commit(){
@@ -46,21 +48,18 @@ first_commit(){
     printf "\t         git config --global user.email \"jim.demo@example.com\"\n"
     printf "\t4. Create a LICENSE (optional)\n"
     cp ${PROJECTDIR}/.gitignore ${PROJECTDIR}/LICENSE ${PROJECTDIR}/README.md .
-    printf "$ git status\n"
+    set -x
     git status
-    read enter # pause until user enters
+    set +x
+    pause enter # pause until user enters
     printf "Those files have been created\n"
-    sleep 1
-    printf "$ git add .gitignore LICENSE README.md\n"
-    sleep 1
+    set -x
     git add .gitignore LICENSE README.md
-    printf "$ git commit -m \"Initial commit\"\n"
-    sleep 1
-    printf "$ git push\n\n"
-    sleep 1
-    printf "$ git log\n"
+    git commit -m "Initial commit"
+    git push
     git log
-    read enter # pause for user enter
+    set +x
+    pause enter # pause for user enter
 }
 
 next_commits(){
@@ -75,18 +74,16 @@ next_commits(){
 	destination=${destination##${FILEPREFIX}_}
 	cp "${item}" "${destination}"
     done
-    printf "$ git status\n"
+    set -x
     git status
-    read enter # pause until user enters
-    printf "$ git add \*.java\n"
     git add *.java
+    set +x
     commit_message=$(cat ${PROJECTDIR}/java/${FILEPREFIX}_commit_message.txt)
-    printf "$ git commit -m \"%s\"\n" "${commit_message}"
+    set -x
     git commit -m "${commit_message}"
-    sleep 1
-    printf "$ git push\n\n"
     git push
-    read enter # pause for user enter
+    set +x
+    pause enter # pause for user enter
 }
 
 branch_commit(){
@@ -95,19 +92,14 @@ branch_commit(){
     printf "For testing (or other purposes), we will create a branch\n"
     printf "\nIn our demonstration, the project is testing\n"
     printf "\na threaded Singer\n"
-    sleep 1
-    printf "$ git branch threaded\n"
+    set -x
     git branch threaded
-    sleep 1
-    printf "The branch has been created but we need to switch to it\n"
-    printf "$ git checkout threaded\n"
     git checkout threaded
-    printf "To display branches, just call \"git branch\" without arguments\n"
     git branch
-    read enter # pause until user enters
+    set +x
+    pause enter # pause until user enters
     printf "Make changes and test it\n"
     printf "You can commit as many changes as needed\n"
-    sleep 1
     for item in ${PROJECTDIR}/java/${FILEPREFIX}_*.java; do
 	# trim the file path
 	destination=${item##*/}
@@ -115,21 +107,22 @@ branch_commit(){
 	destination=${destination##${FILEPREFIX}_}
 	cp "${item}" "${destination}"
     done
-    printf "$ git status\n"
+    set -x
     git status
-    read enter # pause until user enters
-    printf "$ git add \*.java\n"
+    set +x
+    pause enter
+    set -x
     git add *.java
-    sleep 1
+    set +x
     commit_message=$(cat ${PROJECTDIR}/java/${FILEPREFIX}_commit_message.txt)
-    printf "$ git commit -m \"%s\"\n" "${commit_message}"
+    set -x
     git commit -m "${commit_message}"
-    sleep 1
+    set +x
     printf "To have remote track this branch, be sure to push it like this\n"
     printf "This is only required on the first push. Later pushes can be as before\n"
     printf "$ git push --set-upstream origin threaded\n\n"
     git push --set-upstream origin threaded
-    read enter # pause for user enter
+    pause enter # pause for user enter
 }
 
 merge_branch(){
@@ -137,24 +130,22 @@ merge_branch(){
     printf "If you are done with a branch and want to merge\n"
     printf "one branch with another\n"
     printf "Switch branches to the destination\n"
-    sleep 1
-    printf "$ git checkout main\n"
+    set -x
     git checkout main
-    printf "$ git branch\n"
     git branch
-    read enter # pause until user hits enter
+    set +x
+    pause enter # pause until user hits enter
     printf "This may require an OK from a project leader\n"
     printf "if this is a group project\n"
-    sleep 1
-    printf "$ git merge threaded\n"
-    printf "$ git commit -m \"Merged branches\"\n"
+    set -x
+    git merge threaded
     git commit -m "Merged branches"
-    sleep 1
+    set +x
     printf "If the merge was successful, you may delete the branch\n"
-    printf "$ git branch -d threaded\n"
+    set -x
     git branch -d threaded
-    sleep 1
-    read enter # pause for user enter
+    set +x
+    pause enter # pause for user enter
 }
 
 commit_last(){
@@ -168,16 +159,16 @@ commit_last(){
 	destination=${destination##5_}
 	cp "${item}" "${destination}"
     done
-    printf "$ git add \*.java\n"
+    set -x
     git add *.java
-    sleep 1
+    set +x
     commit_message=$(cat ${PROJECTDIR}/java/5_commit_message.txt)
-    printf "$ git commit -m \"%s\"\n" "${commit_message}"
+    set -x
     git commit -m "${commit_message}"
-    printf "$ git push\n"
     git push
     git log
-    read enter # pause for user enter
+    set +x
+    pause enter # pause for user enter
 }
     
 
