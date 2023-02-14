@@ -31,7 +31,7 @@ fi
 introduction(){
     clear
     printf "Welcome to Matt\'s git demonstration\n"
-    pause enter
+    read -p "Press enter key to continue..." enter # pause for user enter
 }
 
 first_commit(){
